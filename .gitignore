@@ -1,0 +1,8 @@
+__pycache__/
+build/
+saved/
+Prime_suit_editor/
+*.zip
+*.blend1
+*.spec
+*.bat
