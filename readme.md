@@ -1,5 +1,6 @@
 ## Metroid Prime suit editor
 by Azure Lazuline
+v1.0.0
 
 This makes a set of custom textures to load into Dolphin for custom suits in Prime 1.
 Eventually i hope to get it integrated into Randovania, but for now it's standalone.

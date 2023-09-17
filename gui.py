@@ -14,7 +14,7 @@ from custom_suit_color import recolor_all_suits
 root = tk.Tk()
 #root.geometry('500x280')
 root.resizable(False, False)
-root.title('Metroid Prime suit editor v1.0')
+root.title('Metroid Prime suit editor')
 icon=PhotoImage(file="./img/logo.png")
 root.iconphoto(True,icon)
 
