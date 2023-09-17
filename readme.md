@@ -1,4 +1,4 @@
-#Metroid Prime suit editor
+## Metroid Prime suit editor
 by Azure Lazuline
 
 This makes a set of custom textures to load into Dolphin for custom suits in Prime 1.
@@ -7,7 +7,7 @@ Eventually i hope to get it integrated into Randovania, but for now it's standal
 This program only works for NTSC version 1.0 on Gamecube (GM8E01).
 
 
-##Instructions
+### Instructions
 
 Run gui.py (or the Windows standalone executable), and the interface should be pretty
 self-explanatory. You can save and load full sets of suits as a file, or copy
@@ -24,7 +24,7 @@ subdirectory (which is where your settings and saved palettes get put by default
 too). I figured i'd expose them in case it's useful to show people your new suits!
 
 
-##Known issues
+### Known issues
 
 Some of the morph ball colors like the internal energy aren't accessible through
 textures, so it'd need a more extensive hack to change them. This means some of the
