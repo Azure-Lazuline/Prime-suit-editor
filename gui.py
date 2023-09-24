@@ -162,19 +162,57 @@ def export():
     
     dir = filedialog.askdirectory(initialdir=initialdir, title="Select Dolphin's \"User\" directory")
     if dir == "": return
-    dir = dir + "/"
-    datadir = dir.rfind("/User/")
-    if datadir == -1 and len(dir) > 1:
-        messagebox.showerror(title="Error", message="Dolphin's user directory not found.\n\nYou can locate it with \"File -> Open User Folder\" in Dolphin.")
-        return
-    exportdirectory = dir
-    dir = dir[0 : datadir] + "/User/Load/Textures/GM8E01/"
-    if not os.path.exists(dir):
-        os.makedirs(dir)
-    save_settings()
 
-    recolor_all_suits([True, True, True, True, True, True, True, True], True, dir, *suit_parameters)
-    messagebox.showinfo(title="Success", message="Textures exported!\n\nMake sure to turn on \"Load Custom Textures\" in Dolphin's graphic settings, and set all suit cosmetics to 0 in Randovania.")
+    if len(dir) == 0: return
+
+    originaldir = dir
+
+    while True:
+        if isUserDir(dir):
+            #found the dolphin user directory at some part of the directory tree. Fill in the rest and export
+            exportdirectory = dir
+            dir = dir + "/Load/Textures/GM8E01/"
+            if not os.path.exists(dir):
+                os.makedirs(dir)
+            save_settings()
+
+            recolor_all_suits([True, True, True, True, True, True, True, True], True, dir, *suit_parameters)
+            messagebox.showinfo(title="Success", message="Textures exported!\n\nMake sure to turn on \"Load Custom Textures\" in Dolphin's graphic settings, and set all suit cosmetics to 0 in Randovania.")
+            return
+        if dir.rfind("/Load/Textures/GM8") >= 0:
+            #probably exporting to the textures folder directly, possibly for a different game ID. Don't add the rest of the path
+            dir = originaldir + "/"
+            exportdirectory = dir
+            save_settings()
+            recolor_all_suits([True, True, True, True, True, True, True, True], True, dir, *suit_parameters)
+            messagebox.showinfo(title="Success", message="Textures exported!\n\nMake sure to turn on \"Load Custom Textures\" in Dolphin's graphic settings, and set all suit cosmetics to 0 in Randovania.")
+            return
+        #not found, try up by one directory
+        split = dir.rfind("/")
+        if split == -1:
+            #messagebox.showerror(title="Error", message="Dolphin's user directory not found.\n\nYou can locate it with \"File -> Open User Folder\" in Dolphin.")
+            answer = messagebox.askyesno(title="Error", message="Dolphin's user directory not found.\nYou can locate it with \"File -> Open User Folder\" in Dolphin.\n\nDo you want to export to this directory anyway?")
+            if answer:
+                #export anyway
+                dir = originaldir + "/"
+                exportdirectory = dir
+                save_settings()
+                recolor_all_suits([True, True, True, True, True, True, True, True], True, dir, *suit_parameters)
+                messagebox.showinfo(title="Success", message="Textures exported!\n\nOnce you move them to the correct directory, make sure to also turn on \"Load Custom Textures\" in Dolphin's graphic settings, and set all suit cosmetics to 0 in Randovania.")
+                
+            return
+        dir = dir[0 : split]
+
+
+def isUserDir(dir):
+    #a bit hackish, but the directory itself can have many names depending on OS and such
+    if not os.path.exists(dir + "/Load/"): return False
+    if not os.path.exists(dir + "/ScreenShots/"): return False
+    if not os.path.exists(dir + "/StateSaves/"): return False
+    if not os.path.exists(dir + "/GC/"): return False
+    if not os.path.exists(dir + "/GBA/"): return False
+    if not os.path.exists(dir + "/Config/"): return False
+    return True
 
 def save_settings():
     global exportdirectory
