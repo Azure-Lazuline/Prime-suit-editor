@@ -1,8 +1,8 @@
-![Samus with a pink and blue varia suit](github-images/suit_editor_2.jpg)
-![Samus with a dark blue phazon suit](github-images/suit_editor_4.jpg)
+![Samus with some new suits](github-images/header.jpg)
 
 ## Metroid Prime suit editor
 by Azure Lazuline
+
 v1.0.1
 
 This makes a set of custom textures to load into Dolphin for custom suits in Prime 1.
@@ -40,4 +40,5 @@ version directly (instead of Dolphin's base user folder), but it's untested.
 ### Change log
 
 v1.0.0: initial release
+
 v1.0.1: fixed a bug with detecting Dolphin's export directory
