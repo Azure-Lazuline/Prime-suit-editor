@@ -1,6 +1,7 @@
 ![Samus with some new suits](github-images/header.jpg)
 
 ## Metroid Prime suit editor
+
 by Azure Lazuline
 
 v1.0.1
@@ -41,4 +42,7 @@ version directly (instead of Dolphin's base user folder), but it's untested.
 
 v1.0.0: initial release
 
-v1.0.1: fixed a bug with detecting Dolphin's export directory
+v1.0.1: fixed a bug with detecting Dolphin's user directory
+
+v1.0.2: added missing 3rd-person Phazon Suit arm texture.
+		adjusted Fusion-Varia and Fusion-Gravity so a wider palette is available.

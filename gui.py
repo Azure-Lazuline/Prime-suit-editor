@@ -30,7 +30,7 @@ currentfile = None
 exportdirectory = None
 
 #default colors
-#these aren't 100% accurate but should be 99%.
+#these aren't 100% accurate but should be very close.
 
 powerheadcolor = [255, 50, 1]
 powermaincolor = [227, 135, 0]
@@ -58,19 +58,19 @@ phazonmisccolor = [255, 230, 0]
 
 fusionpowerheadcolor = [244, 20, 104]
 fusionpowermaincolor = [11, 182, 209]
-fusionpowerchestcolor = [224, 208, 0]
+fusionpowerchestcolor = [255, 251, 91]
 
 fusionvariaheadcolor = [244, 20, 104]
 fusionvariamaincolor = [224, 255, 16]
-fusionvariachestcolor = [224, 69, 175]
+fusionvariachestcolor = [238, 87, 197]
 
 fusiongravityheadcolor = [244, 20, 104]
-fusiongravitymaincolor = [112, 92, 146]
-fusiongravitychestcolor = [64, 215, 180]
+fusiongravitymaincolor = [112, 75, 146]
+fusiongravitychestcolor = [35, 190, 155]
 
 fusionphazonheadcolor = [246, 58, 44]
-fusionphazonmaincolor = [245, 139, 0]
-fusionphazonchestcolor = [224, 208, 0]
+fusionphazonmaincolor = [249, 158, 0]
+fusionphazonchestcolor = [250, 233, 27]
 
 fusionallvisorcolor = [40, 157, 201]
 fusionallmisccolor = [178, 122, 236]

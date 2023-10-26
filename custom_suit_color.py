@@ -25,6 +25,9 @@ def recolor_all_suits(suits_to_recolor, do_export, outputdir,
     #Phazon spider is phazonvisorcolor for the outside edge, and phazonmisccolor for the core.
 
 
+    #some of the other fusion suits are lower-contrast than the base one, which meant they were much harder to recolor. If this is true, it overrides it to use base Fusion suit for all of them, so it's consistent
+    use_base_fusion_for_all = True
+
 #-----------------------------------------------------------------------------------------------------------------------
 #-----------------------------------------------------------------------------------------------------------------------
 #-----------------------------------------------------------------------------------------------------------------------
@@ -186,7 +189,7 @@ def recolor_all_suits(suits_to_recolor, do_export, outputdir,
                 if texnames[6] != "": atlas.crop([256, 0, 256 + 256, 0 + 256]).save(outputdir + texnames[6]) #256x256 suit shine
                 if texnames[7] != "": atlas.crop([512, 0, 512 + 128, 0 + 128]).save(outputdir + texnames[7]) #128x128 spiderball
                 if texnames[8] != "": atlas.crop([512, 128, 512 + 128, 128 + 128]).save(outputdir + texnames[8]) #128x128 glow clouds
-                if texnames[9] != "": atlas.crop([64 * 0, 256, 64 * 1, 256 + 64]).save(outputdir + texnames[9]) #64x64 3rd person arm
+                if texnames[9] != "": atlas.crop([64 * 0, 256, 64 * 1, 256 + 64]).save(outputdir + texnames[9]) #64x64 3rd person arm small
                 if texnames[10] != "": atlas.crop([64 * 1, 256, 64 * 2, 256 + 64]).save(outputdir + texnames[10]) #64x64 visor 1
                 if texnames[11] != "": atlas.crop([64 * 2, 256, 64 * 3, 256 + 64]).save(outputdir + texnames[11]) #64x64 visor 2
                 if texnames[12] != "": atlas.crop([64 * 3, 256, 64 * 4, 256 + 64]).save(outputdir + texnames[12]) #64x64 visor 3
@@ -198,6 +201,7 @@ def recolor_all_suits(suits_to_recolor, do_export, outputdir,
                 if texnames[18] != "": atlas.crop([576, 256, 576 + 32, 256 + 32]).save(outputdir + texnames[18]) #32x32 spiderball line
                 if texnames[19] != "": atlas.crop([0, 320, 0 + 64, 320 + 64]).save(outputdir + texnames[19]) #32x32 circle reflect 1
                 if texnames[20] != "": atlas.crop([64, 320, 64 + 64, 320 + 64]).save(outputdir + texnames[20]) #32x32 circle reflect 2
+                if texnames[21] != "": atlas.crop([640, 0, 640 + 128, 0 + 128]).save(outputdir + texnames[21]) #128x128 3rd person arm big
 
             #full samus preview,
             #256x256 helmet, 256x256 limbs,
@@ -249,9 +253,6 @@ def recolor_all_suits(suits_to_recolor, do_export, outputdir,
     #the code itself can handle having it separate, so undo this and expose both these variables once there's not the texture overlap
     powervisorcolor = powervariavisorcolor
     variavisorcolor = powervariavisorcolor
-
-    #there's technically support for a third color for Power Suit, but nothing i tried with it looked good, so set it to the same as default.
-    #powermaincolor = powerchestcolor
 
     #bright colors for phazon suit colors 1&2 look REAL bad. Cap it to a certain brightness
     phazonheadcolor = np.array(phazonheadcolor) * 0.6
@@ -320,11 +321,12 @@ def recolor_all_suits(suits_to_recolor, do_export, outputdir,
     #128x128 topleft, 128x128 topright,
     #128x128 bottomleft, 128x128 bottomright,
     #256x256 suit shine, 128x128 spiderball, 128x128 glow clouds
-    #64x64 3rd person arm, 64x64 visor 1, 64x64 visor 2,
+    #64x64 3rd person arm small, 64x64 visor 1, 64x64 visor 2,
     #64x64 visor 3, 64x64 visor 4, 64x64 lights,
     #64x64 noise, 64x64 spiderball glow,
     #64x64 reflection map, 32x32 spiderball line
     #64x64 circle reflect 1, 64x64 circle reflect 2
+    #128x128 3rd person arm big
 
     phazontexnames = ["preview-normal-4.png","tex1_128x128_m_c9f55a6fabc5198f_14.png",
                 "tex1_128x128_m_6f5229898b196e5d_14.png","tex1_128x128_m_82e1b409dac4d327_14.png",
@@ -334,7 +336,8 @@ def recolor_all_suits(suits_to_recolor, do_export, outputdir,
                 "tex1_64x64_m_78d91fd55fb97ebb_14.png","tex1_64x64_m_121de930946cd9a0_14.png","tex1_64x64_m_c20d361c6b565727_14.png",
                 "tex1_64x64_m_b9b5671d6d497284_14.png","tex1_64x64_m_c1edc9b118a856d5_14.png",
                 "tex1_64x64_m_f3e75b2087f5bf7e_14.png","tex1_32x32_m_605c26ef6af1b5af_14.png",
-                "tex1_64x64_m_6d377b9904ef6f8f_14.png", "tex1_64x64_m_1ce7d583ff26a85b_14.png"]
+                "tex1_64x64_m_6d377b9904ef6f8f_14.png", "tex1_64x64_m_1ce7d583ff26a85b_14.png",
+                "tex1_128x128_m_1e2438f33aec3640_14.png"]
 
     phazongradientcenters = [0.25, 0.23, 0.5, 0.52, 0.52]
 
@@ -378,7 +381,7 @@ def recolor_all_suits(suits_to_recolor, do_export, outputdir,
                            "", "",
                            "tex1_64x64_m_aac358eb2f216ded_14.png", "tex1_64x64_m_e8fab6f3e8dec6ce_14.png"]
 
-    fusionpowergradientcenters = [0.5, 0.5, 0.6, 0.5, 0.7]
+    fusionpowergradientcenters = [0.5, 0.5, 0.75, 0.5, 0.7]
     fusionvariagradientcenters = [0.5, 0.6, 0.6, 0.5, 0.7]
     fusiongravitygradientcenters = [0.5, 0.48, 0.6, 0.5, 0.7]
     fusionphazongradientcenters = [0.5, 0.56, 0.6, 0.5, 0.7]
@@ -390,7 +393,13 @@ def recolor_all_suits(suits_to_recolor, do_export, outputdir,
     if suits_to_recolor[2]: recolor_suit("gravity", "mask-normal", [gravityheadcolor, gravitymaincolor, gravitychestcolor, gravityvisorcolor, [0, 0, 0]], gravitygradientcenters, gravitytexnames)
     if suits_to_recolor[3]: recolor_suit("phazon", "mask-phazon", [phazonheadcolor, phazonmaincolor, [0, 0, 0], phazonvisorcolor, phazonmisccolor], phazongradientcenters, phazontexnames)
 
-    if suits_to_recolor[4]: recolor_suit("fusion-power", "mask-fusion", [fusionpowerheadcolor, fusionpowermaincolor, fusionpowerchestcolor, fusionallvisorcolor, fusionallmisccolor], fusionpowergradientcenters, fusionpowertexnames)
-    if suits_to_recolor[5]: recolor_suit("fusion-varia", "mask-fusion", [fusionvariaheadcolor, fusionvariamaincolor, fusionvariachestcolor, fusionallvisorcolor, fusionallmisccolor], fusionvariagradientcenters, fusionvariatexnames)
-    if suits_to_recolor[6]: recolor_suit("fusion-gravity", "mask-fusion", [fusiongravityheadcolor, fusiongravitymaincolor, fusiongravitychestcolor, fusionallvisorcolor, fusionallmisccolor], fusiongravitygradientcenters, fusiongravitytexnames)
-    if suits_to_recolor[7]: recolor_suit("fusion-phazon", "mask-fusion", [fusionphazonheadcolor, fusionphazonmaincolor, fusionphazonchestcolor, fusionallvisorcolor, fusionallmisccolor], fusionphazongradientcenters, fusionphazontexnames)
+    if use_base_fusion_for_all:
+        if suits_to_recolor[4]: recolor_suit("fusion-power", "mask-fusion", [fusionpowerheadcolor, fusionpowermaincolor, fusionpowerchestcolor, fusionallvisorcolor, fusionallmisccolor], fusionpowergradientcenters, fusionpowertexnames)
+        if suits_to_recolor[5]: recolor_suit("fusion-power", "mask-fusion", [fusionvariaheadcolor, fusionvariamaincolor, fusionvariachestcolor, fusionallvisorcolor, fusionallmisccolor], fusionpowergradientcenters, fusionvariatexnames)
+        if suits_to_recolor[6]: recolor_suit("fusion-power", "mask-fusion", [fusiongravityheadcolor, fusiongravitymaincolor, fusiongravitychestcolor, fusionallvisorcolor, fusionallmisccolor], fusionpowergradientcenters, fusiongravitytexnames)
+        if suits_to_recolor[7]: recolor_suit("fusion-power", "mask-fusion", [fusionphazonheadcolor, fusionphazonmaincolor, fusionphazonchestcolor, fusionallvisorcolor, fusionallmisccolor], fusionpowergradientcenters, fusionphazontexnames)
+    else:
+        if suits_to_recolor[4]: recolor_suit("fusion-power", "mask-fusion", [fusionpowerheadcolor, fusionpowermaincolor, fusionpowerchestcolor, fusionallvisorcolor, fusionallmisccolor], fusionpowergradientcenters, fusionpowertexnames)
+        if suits_to_recolor[5]: recolor_suit("fusion-varia", "mask-fusion", [fusionvariaheadcolor, fusionvariamaincolor, fusionvariachestcolor, fusionallvisorcolor, fusionallmisccolor], fusionvariagradientcenters, fusionvariatexnames)
+        if suits_to_recolor[6]: recolor_suit("fusion-gravity", "mask-fusion", [fusiongravityheadcolor, fusiongravitymaincolor, fusiongravitychestcolor, fusionallvisorcolor, fusionallmisccolor], fusiongravitygradientcenters, fusiongravitytexnames)
+        if suits_to_recolor[7]: recolor_suit("fusion-phazon", "mask-fusion", [fusionphazonheadcolor, fusionphazonmaincolor, fusionphazonchestcolor, fusionallvisorcolor, fusionallmisccolor], fusionphazongradientcenters, fusionphazontexnames)
