@@ -7,9 +7,6 @@ by Azure Lazuline
 v1.0.2
 
 This makes a set of custom textures to load into Dolphin for custom suits in Prime 1.
-Eventually i hope to get it integrated into Randovania, but for now it's standalone.
-(If you're a randomizer dev, go for it! I can't do it on my own because of time
-constraints nowadays, but i'd be glad to help if you contacted me.)
 
 ### Instructions
 
@@ -46,3 +43,7 @@ v1.0.1: fixed a bug with detecting Dolphin's user directory
 
 v1.0.2: added missing 3rd-person Phazon Suit arm texture.
 		adjusted Fusion-Varia and Fusion-Gravity so a wider palette is available.
+
+### License
+
+i cannot maintain this and have fallen out of the community, and so i'm releasing this as CC0 (public domain). do anything you want with it, no credit necessary.
